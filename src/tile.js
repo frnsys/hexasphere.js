@@ -16,16 +16,13 @@ function vector(p1, p2){
 // Set Normal.y to (multiply U.z by V.x) minus (multiply U.x by V.z)
 // Set Normal.z to (multiply U.x by V.y) minus (multiply U.y by V.x)
 function calculateSurfaceNormal(p1, p2, p3){
-
-    U = vector(p1, p2)
-    V = vector(p1, p3)
-    
-    N = {
+    let U = vector(p1, p2)
+    let V = vector(p1, p3)
+    let N = {
         x: U.y * V.z - U.z * V.y,
         y: U.z * V.x - U.x * V.z,
         z: U.x * V.y - U.y * V.x
     };
-
     return N;
 
 }
@@ -46,7 +43,7 @@ function normalizeVector(v){
 }
 
 var Tile = function(centerPoint, hexSize){
-    
+
     if(hexSize == undefined){
         hexSize = 1;
     }
@@ -93,9 +90,9 @@ Tile.prototype.getLatLon = function(radius, boundaryNum){
     if(typeof boundaryNum == "number" && boundaryNum < this.boundary.length){
         point = this.boundary[boundaryNum];
     }
-    var phi = Math.acos(point.y / radius); //lat 
+    var phi = Math.acos(point.y / radius); //lat
     var theta = (Math.atan2(point.x, point.z) + Math.PI + Math.PI / 2) % (Math.PI * 2) - Math.PI; // lon
-    
+
     // theta is a hack, since I want to rotate by Math.PI/2 to start.  sorryyyyyyyyyyy
     return {
         lat: 180 * phi / Math.PI - 90,
